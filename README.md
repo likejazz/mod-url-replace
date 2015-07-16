@@ -13,7 +13,7 @@ LoadModule url_replace_module modules/mod_url_replace.so
 </Directory>
 ```
 
-You should not edit original urls.
+You SHOULD NOT edit original urls.
 
 ## Output
 
@@ -46,10 +46,10 @@ It will convert old urls to new urls automatically.
 
 # Installation
 
-Edit `build.sh` path in `modules/url-replace` directory.
+Edit paths in `modules/url-replace/build.sh` before building.
 
 ```
 $ sh ./build.sh
 ```
 
-You can see `mod_url_replace.so` below `modules` from build output directory.
+You can see `mod_url_replace.so` in `modules` directory from build output.
