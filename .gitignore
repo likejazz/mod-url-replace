@@ -1,0 +1,9 @@
+Makefile
+*.la
+*.lo
+*.o
+*.slo
+modules.mk
+.idea
+.deps
+.libs
