@@ -13,8 +13,6 @@ LoadModule url_replace_module modules/mod_url_replace.so
 </Directory>
 ```
 
-You SHOULD NOT edit original urls.
-
 ## Output
 
 ### Original
@@ -42,11 +40,11 @@ Content-Type: text/html
 <h1>https://t99.search.daumcdn.net/argon/0x200_85_hr/GWIqfBjaDrt</h1>
 ```
 
-It will convert old urls to new urls automatically.
+It will convert OLD urls to NEW urls automatically. You don't have to do anything. 
 
 # Installation
 
-Edit paths in `modules/url-replace/build.sh` before building.
+Edit PATHs in `modules/url-replace/build.sh` before building.
 
 ```
 $ sh ./build.sh
