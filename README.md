@@ -13,9 +13,9 @@ LoadModule url_replace_module modules/mod_url_replace.so
 </Directory>
 ```
 
-## Output
+## DEMO
 
-### Original
+### Source
 ```
 $ cat index.html
 <h1>https://t1.search.daumcdn.net/argon/0x200_85_hr/IHxzswBdipQ</h1>
@@ -47,7 +47,7 @@ It will convert OLD urls to NEW urls automatically. You don't have to do anythin
 Edit PATHs in `modules/url-replace/build.sh` before building.
 
 ```
-$ sh ./build.sh
+$ sh build.sh
 ```
 
 You can see `mod_url_replace.so` in `modules` directory from build output.
