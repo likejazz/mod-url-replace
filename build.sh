@@ -27,7 +27,7 @@ cd $MOD_SRC_PATH
 ln -s $MOD_SRC_PATH/httpd.conf $BUILD_PATH/conf/httpd.conf
 ln -s $MOD_SRC_PATH/index.html $BUILD_PATH/htdocs/index.html
 
-# Check if spdy-replaced module is well-compiled.
+# Check if url-replace module is well-compiled.
 ls -al $BUILD_PATH/modules
 
 $BUILD_PATH/bin/apachectl start
