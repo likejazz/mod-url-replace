@@ -40,7 +40,7 @@ Content-Type: text/html
 <h1>https://t99.search.daumcdn.net/argon/0x200_85_hr/GWIqfBjaDrt</h1>
 ```
 
-It will convert OLD urls to NEW urls automatically. You don't have to do anything. 
+It will convert OLD urls to NEW urls automatically. You don't have to do ANYTHING. 
 
 # Installation
 
