@@ -51,12 +51,37 @@ typedef struct {
     apr_pool_t *tpool;
 } substitute_module_ctx;
 
+static void *add_pattern(apr_pool_t *p, void *cfg, char *from, char *to) {
+    subst_pattern_t *script;
+
+    script = apr_array_push(((subst_dir_conf *) cfg)->patterns);
+
+    script->patlen = strlen(from);
+    script->pattern = apr_strmatch_precompile(p, from, 0); // case-insensitive
+
+    script->replacement = to;
+    script->replen = strlen(to);
+
+    return NULL;
+}
+
 static void *create_substitute_dcfg(apr_pool_t *p, char *d)
 {
     subst_dir_conf *dcfg =
     (subst_dir_conf *) apr_pcalloc(p, sizeof(subst_dir_conf));
 
     dcfg->patterns = apr_array_make(p, 10, sizeof(subst_pattern_t));
+
+    /* ------------------------- ADD PATTERNS HERE -------------------------- */
+
+    char *spdy_addr = "//t99.search.daumcdn.net/";
+
+    add_pattern(p, dcfg, "//t1.search.daumcdn.net/", spdy_addr);
+    add_pattern(p, dcfg, "//t2.search.daumcdn.net/", spdy_addr);
+    add_pattern(p, dcfg, "//t3.search.daumcdn.net/", spdy_addr);
+    add_pattern(p, dcfg, "//t4.search.daumcdn.net/", spdy_addr);
+
+    /* ---------------------------------------------------------------------- */
 
     return dcfg;
 }
@@ -74,15 +99,6 @@ static void *create_substitute_dcfg(apr_pool_t *p, char *d)
     s1 = apr_pstrcat(pool, s1, repl, NULL);          \
 } while (0)
 
-static void add_pattern(apr_pool_t *p, const subst_dir_conf *cfg, subst_pattern_t *script, char *from, char *to) {
-
-    script = apr_array_push(((subst_dir_conf *) cfg)->patterns);
-
-    script->pattern = apr_strmatch_precompile(p, from, 0); // case-insensitive
-    script->replacement = to;
-    script->patlen = strlen(from);
-    script->replen = strlen(to);
-}
 
 static void do_pattmatch(ap_filter_t *f, apr_bucket *inb,
                          apr_bucket_brigade *mybb,
@@ -183,20 +199,6 @@ static apr_status_t url_replace_filter(ap_filter_t *f, apr_bucket_brigade *bb)
     apr_bucket *tmp_b;
     apr_bucket_brigade *tmp_bb = NULL;
     apr_status_t rv;
-
-    subst_dir_conf *cfg =
-            (subst_dir_conf *) ap_get_module_config(f->r->per_dir_config,
-                                                    &url_replace_module);
-    subst_pattern_t *script;
-
-    /* ------------------------- ADD PATTERNS HERE -------------------------- */
-
-    char *to_url = "t99.search.daumcdn.net";
-
-    add_pattern(f->r->pool, cfg, script, "t2.search.daumcdn.net", to_url);
-    add_pattern(f->r->pool, cfg, script, "t4.search.daumcdn.net", to_url);
-
-    /* ---------------------------------------------------------------------- */
 
     substitute_module_ctx *ctx = f->ctx;
 
